@@ -2,6 +2,7 @@ package com.atguigu.spzx.manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 作者:hfj
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 日期: 2025/12/24 10:14
  */
 @SpringBootApplication
+@ComponentScan(basePackages = {"com.atguigu.spzx"})
 public class ManagerApplication {
 
     public static void main(String[] args) {
