@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * 作者:hfj
- * 功能:
+ * 功能:首页的基本功能
  * 日期: 2025/12/24 10:17
  */
 
