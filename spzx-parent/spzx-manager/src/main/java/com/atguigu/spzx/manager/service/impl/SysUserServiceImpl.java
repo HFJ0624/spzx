@@ -75,12 +75,22 @@ public class SysUserServiceImpl implements SysUserService {
 
         //6.登录成功，生成用户唯一标识token,把登录成功用户信息存入到redis里面
         String token = UUID.randomUUID().toString().replace("-", "");
-        redisTemplate.opsForValue().set("user:login:" + token , JSON.toJSONString(sysUser) , 7 , TimeUnit.DAYS);
+        redisTemplate.opsForValue().set("user:login" + token , JSON.toJSONString(sysUser) , 7 , TimeUnit.DAYS);
 
         //7.返回loginVo
         LoginVo loginVo = new LoginVo();
         loginVo.setToken(token);
 
         return loginVo;
+    }
+
+    //获取当前的用户信息
+    @Override
+    public SysUser getUserInfo(String token) {
+        String userJson = redisTemplate.opsForValue().get("user:login" + token);
+
+        //把json字符串序列化成对象
+        SysUser sysUser = JSON.parseObject(userJson,SysUser.class);
+        return sysUser;
     }
 }
