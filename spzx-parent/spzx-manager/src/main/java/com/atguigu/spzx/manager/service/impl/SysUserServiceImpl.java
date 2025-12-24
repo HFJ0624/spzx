@@ -1,10 +1,12 @@
 package com.atguigu.spzx.manager.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.manager.mapper.SysUserMapper;
 import com.atguigu.spzx.manager.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
+import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -40,7 +42,8 @@ public class SysUserServiceImpl implements SysUserService {
 
         //3.根据用户名查找对应的用户信息，找不到则返回错误信息
         if (sysUser == null){
-            throw new RuntimeException("用户名不存在");
+            //throw new RuntimeException("用户名不存在");
+            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR);
         }
 
         //4.用户存在
@@ -50,7 +53,8 @@ public class SysUserServiceImpl implements SysUserService {
 
         //比较
         if (!input_password.equals(database_password)){
-            throw new RuntimeException("密码不正确");
+            //throw new RuntimeException("密码不正确");
+            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR);
         }
 
         //6.登录成功，生成用户唯一标识token,把登录成功用户信息存入到redis里面
