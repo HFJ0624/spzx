@@ -5,6 +5,7 @@ import com.atguigu.spzx.manager.mapper.SysMenuMapper;
 import com.atguigu.spzx.manager.service.SysMenuService;
 import com.atguigu.spzx.manager.utils.MenuHelper;
 import com.atguigu.spzx.model.entity.system.SysMenu;
+import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -35,5 +36,32 @@ public class SysMenuServiceImpl implements SysMenuService {
         List<SysMenu> treeList = MenuHelper.buildTree(sysMenuList);
 
         return treeList;
+    }
+
+    //添加菜单
+    @Override
+    public void save(SysMenu sysMenu) {
+        sysMenuMapper.save(sysMenu);
+    }
+
+    //修改菜单
+    @Override
+    public void update(SysMenu sysMenu) {
+        sysMenuMapper.update(sysMenu);
+    }
+
+    //删除菜单
+    @Override
+    public void removeById(Long id) {
+        //根据当前菜单id,查询是否包含子菜单
+        int count = sysMenuMapper.countByParentId(id);
+
+        //count 大于0 包含子菜单
+        if (count > 0){
+            throw new GuiguException(ResultCodeEnum.NODE_ERROR);
+        }
+
+        //不存在子菜单直接删除
+        sysMenuMapper.deleteById(id);
     }
 }

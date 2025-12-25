@@ -8,4 +8,13 @@ public interface SysMenuService {
 
     //菜单列表
     List<SysMenu> findNodes();
+
+    //添加菜单
+    void save(SysMenu sysMenu);
+
+    //修改菜单
+    void update(SysMenu sysMenu);
+
+    //删除菜单
+    void removeById(Long id);
 }
