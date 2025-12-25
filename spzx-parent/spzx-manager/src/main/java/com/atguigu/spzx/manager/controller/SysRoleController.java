@@ -9,6 +9,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * 作者:hfj
  * 功能:角色功能实现
@@ -49,5 +51,12 @@ public class SysRoleController {
     public Result deleteById(@PathVariable(value = "roleId") Long roleId) {
         sysRoleService.deleteById(roleId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    //查询所有角色
+    @GetMapping(value = "/findAllRoles/{userId}")
+    public Result<Map<String , Object>> findAllRoles(@PathVariable("userId") Long userId) {
+        Map<String, Object> resultMap = sysRoleService.findAll(userId);
+        return Result.build(resultMap, ResultCodeEnum.SUCCESS) ;
     }
 }

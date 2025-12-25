@@ -1,6 +1,7 @@
 package com.atguigu.spzx.manager.controller;
 
 import com.atguigu.spzx.manager.service.SysUserService;
+import com.atguigu.spzx.model.dto.system.AssignRoleDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
 import com.atguigu.spzx.model.entity.system.SysUser;
@@ -47,6 +48,13 @@ public class SysUserController {
     @DeleteMapping(value = "/deleteById/{userId}")
     public Result deleteById(@PathVariable(value = "userId") Long userId) {
         sysUserService.deleteById(userId);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    //用户分配角色并保存分配数据
+    @PostMapping("/doAssign")
+    public Result doAssign(@RequestBody AssignRoleDto assignRoleDto) {
+        sysUserService.doAssign(assignRoleDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }
