@@ -18,7 +18,8 @@ public class GlobalExceptionHandler {
     //全局异常处理
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Result error(){
+    public Result error(Exception e){
+        e.printStackTrace();
         return Result.build(null , ResultCodeEnum.SYSTEM_ERROR);
     }
 

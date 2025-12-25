@@ -6,14 +6,18 @@ import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.manager.mapper.SysUserMapper;
 import com.atguigu.spzx.manager.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
+import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -98,5 +102,51 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void logout(String token) {
         redisTemplate.delete("user:login" + token);
+    }
+
+    //用户条件分页查询接口
+    @Override
+    public PageInfo<SysUser> findByPage(Integer pageNum, Integer pageSize, SysUserDto sysUserDto) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<SysUser> list = sysUserMapper.findByPage(sysUserDto);
+        PageInfo pageInfo = new PageInfo(list);
+        return pageInfo;
+    }
+
+    //用户的添加功能
+    @Override
+    public void saveSysUser(SysUser sysUser) {
+        //1.判断用户名不能重复
+        SysUser dbSysUser = sysUserMapper.selectUserInfoByUserName(sysUser.getUserName());
+        if (dbSysUser != null){
+            throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+
+        //2.对输入的密码进行加密
+        String md5_password = DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes());
+        sysUser.setPassword(md5_password);
+
+        //3.状态值不能为空
+        sysUser.setStatus(1);
+
+        sysUserMapper.save(sysUser);
+    }
+
+    //用户的修改功能
+    @Override
+    public void updateSysUser(SysUser sysUser) {
+        //判断用户名不能重复
+        SysUser dbSysUser = sysUserMapper.selectUserInfoByUserName(sysUser.getUserName());
+        if (dbSysUser != null){
+            throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+
+        sysUserMapper.update(sysUser);
+    }
+
+    //用户的删除功能
+    @Override
+    public void deleteById(Long userId) {
+        sysUserMapper.delete(userId);
     }
 }
