@@ -23,4 +23,7 @@ public interface SysUserMapper {
 
     //用户的删除功能
     void delete(Long userId);
+
+    //查找修改的用户信息
+    SysUser selectUserInfo(String userName,Long id);
 }

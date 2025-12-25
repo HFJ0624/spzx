@@ -135,8 +135,8 @@ public class SysUserServiceImpl implements SysUserService {
     //用户的修改功能
     @Override
     public void updateSysUser(SysUser sysUser) {
-        //判断用户名不能重复
-        SysUser dbSysUser = sysUserMapper.selectUserInfoByUserName(sysUser.getUserName());
+        //判断用户名不能重复,不需要和自己比较
+        SysUser dbSysUser = sysUserMapper.selectUserInfo(sysUser.getUserName(),sysUser.getId());
         if (dbSysUser != null){
             throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS);
         }

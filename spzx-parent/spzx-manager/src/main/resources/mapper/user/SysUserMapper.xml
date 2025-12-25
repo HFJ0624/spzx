@@ -11,6 +11,11 @@
         select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0
     </select>
 
+    <!--  用户修改的sql语句  -->
+    <select id="selectUserInfo" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0 and id != #{id}
+    </select>
+
     <sql id="findPageWhere">
         <where>
             <if test="keyword != null and keyword != ''">
