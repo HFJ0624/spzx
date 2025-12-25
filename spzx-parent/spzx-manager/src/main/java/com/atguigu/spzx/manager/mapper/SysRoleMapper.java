@@ -13,4 +13,7 @@ public interface SysRoleMapper {
 
     //添加角色方法
     void save(SysRole sysRole);
+
+    //修改角色方法
+    void update(SysRole sysRole);
 }

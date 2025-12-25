@@ -42,4 +42,21 @@
                  )
     </insert>
 
+    <!-- 修改角色 -->
+    <update id="update">
+        update sys_role set
+        <if test="roleName != null and roleName != ''">
+            role_name = #{roleName},
+        </if>
+        <if test="roleCode != null and roleCode != ''">
+            role_code = #{roleCode},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        update_time =  now()
+        where
+        id = #{id}
+    </update>
+
 </mapper>

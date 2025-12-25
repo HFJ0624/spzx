@@ -11,4 +11,7 @@ public interface SysRoleService {
 
     //添加角色方法
     void saveSysRole(SysRole sysRole);
+
+    //修改角色方法
+    void updateSysRole(SysRole sysRole);
 }
