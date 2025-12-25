@@ -29,4 +29,11 @@ public class SysRoleController {
         PageInfo<SysRole> pageInfo = sysRoleService.findByPage(sysRoleDto,current,limit);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
+
+    //添加角色方法
+    @PostMapping(value = "/saveSysRole")
+    public Result saveSysRole(@RequestBody SysRole SysRole) {
+        sysRoleService.saveSysRole(SysRole);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 }

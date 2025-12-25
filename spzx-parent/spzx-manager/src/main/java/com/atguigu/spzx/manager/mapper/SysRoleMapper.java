@@ -10,4 +10,7 @@ import java.util.List;
 public interface SysRoleMapper {
     //角色列表的查询方法
     List<SysRole> findByPage(SysRoleDto sysRoleDto);
+
+    //添加角色方法
+    void save(SysRole sysRole);
 }
