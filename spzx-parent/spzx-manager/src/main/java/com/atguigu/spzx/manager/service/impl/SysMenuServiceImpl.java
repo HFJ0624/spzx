@@ -2,6 +2,7 @@ package com.atguigu.spzx.manager.service.impl;
 
 import com.atguigu.spzx.common.exception.GuiguException;
 import com.atguigu.spzx.manager.mapper.SysMenuMapper;
+import com.atguigu.spzx.manager.mapper.SysRoleMenuMapper;
 import com.atguigu.spzx.manager.service.SysMenuService;
 import com.atguigu.spzx.manager.utils.MenuHelper;
 import com.atguigu.spzx.model.entity.system.SysMenu;
@@ -27,6 +28,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Autowired
     private SysMenuMapper sysMenuMapper;
 
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
+
     //菜单列表
     @Override
     public List<SysMenu> findNodes() {
@@ -46,6 +50,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public void save(SysMenu sysMenu) {
         sysMenuMapper.save(sysMenu);
+
+        //新添加子菜单,就要把该菜单对应的父级菜单设置为半开
+        updateSysRoleMenuIsHalf(sysMenu);
     }
 
     //修改菜单
@@ -100,5 +107,16 @@ public class SysMenuServiceImpl implements SysMenuService {
             sysMenuVoList.add(sysMenuVo);
         }
         return sysMenuVoList;
+    }
+
+    private void updateSysRoleMenuIsHalf(SysMenu sysMenu) {
+        //获取当前添加菜单的父菜单
+        SysMenu parentMenu = sysMenuMapper.selectParentMenu(sysMenu.getParentId());
+        if(parentMenu != null) {
+            //将该id的菜单设置为半开 isHalf = 1
+            sysRoleMenuMapper.updateSysRoleMenuIsHalf(parentMenu.getId());
+            //递归调用
+            updateSysRoleMenuIsHalf(parentMenu);
+        }
     }
 }
