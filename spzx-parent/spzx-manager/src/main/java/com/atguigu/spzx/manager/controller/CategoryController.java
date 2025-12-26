@@ -5,6 +5,7 @@ import com.atguigu.spzx.model.entity.product.Category;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,5 +32,11 @@ public class CategoryController {
     public Result<List<Category>> findByParentId(@PathVariable("id") Long id){
         List<Category> list = categoryService.findCategoryList(id);
         return Result.build(list,ResultCodeEnum.SUCCESS);
+    }
+
+    //导出文件功能
+    @GetMapping(value = "/exportData")
+    public void exportData(HttpServletResponse response) {
+        categoryService.exportData(response);
     }
 }
