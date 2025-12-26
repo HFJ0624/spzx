@@ -22,4 +22,7 @@ public interface SysMenuMapper {
 
     //不存在子菜单直接删除
     void deleteById(Long id);
+
+    //根据用户id查询可以操作的菜单
+    List<SysMenu> findMenusByUserId(Long userId);
 }
