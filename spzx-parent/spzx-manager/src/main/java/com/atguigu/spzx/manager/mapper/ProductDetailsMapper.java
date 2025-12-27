@@ -8,4 +8,10 @@ public interface ProductDetailsMapper {
 
     //保存商品详情数据
     void save(ProductDetails productDetails);
+
+    //根据id删除商品详情数据
+    ProductDetails findProductDetailsById(Long id);
+
+    //修改商品的详情数据
+    void updateById(ProductDetails productDetails);
 }

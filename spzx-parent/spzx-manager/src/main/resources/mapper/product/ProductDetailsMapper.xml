@@ -18,4 +18,33 @@
                  )
     </insert>
 
+    <!--  根据id删除商品详情数据  -->
+    <resultMap id="productDetailsMap" type="com.atguigu.spzx.model.entity.product.ProductDetails" autoMapping="true"/>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id,product_id,image_urls,create_time,update_time,is_deleted
+    </sql>
+
+    <select id="findProductDetailsById" resultMap="productDetailsMap">
+        select <include refid="columns" />
+        from product_details
+        where
+        product_id = #{productId}
+    </select>
+
+    <!--  修改商品的详情数据  -->
+    <update id="updateById" >
+        update product_details set
+        <if test="productId != null and productId != ''">
+            product_id = #{productId},
+        </if>
+        <if test="imageUrls != null and imageUrls != ''">
+            image_urls = #{imageUrls},
+        </if>
+        update_time =  now()
+        where
+        id = #{id}
+    </update>
+
 </mapper>

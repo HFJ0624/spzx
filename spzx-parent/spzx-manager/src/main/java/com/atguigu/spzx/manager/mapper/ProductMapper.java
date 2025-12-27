@@ -14,4 +14,10 @@ public interface ProductMapper {
 
     //保存商品基本信息
     void save(Product product);
+
+    //根据id查询商品基本信息
+    Product findProductById(Long id);
+
+    //修改商品基本数据
+    void updateById(Product product);
 }

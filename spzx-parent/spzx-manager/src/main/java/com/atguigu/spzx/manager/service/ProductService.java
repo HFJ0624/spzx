@@ -11,4 +11,10 @@ public interface ProductService {
 
     //添加商品信息
     void save(Product product);
+
+    //根据商品id查询商品信息
+    Product getById(Long id);
+
+    //保存修改的数据
+    void updateById(Product product);
 }
