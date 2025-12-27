@@ -19,4 +19,7 @@ public interface BrandMapper {
 
     //品牌删除
     void deleteById(Long id);
+
+    //查询所有品牌
+    List<Brand> findAll();
 }
