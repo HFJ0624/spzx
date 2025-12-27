@@ -3,6 +3,7 @@ package com.atguigu.spzx.manager.service.impl;
 import com.atguigu.spzx.manager.mapper.CategoryBrandMapper;
 import com.atguigu.spzx.manager.service.CategoryBrandService;
 import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
+import com.atguigu.spzx.model.entity.product.Brand;
 import com.atguigu.spzx.model.entity.product.CategoryBrand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -46,5 +47,12 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
     @Override
     public void updateById(CategoryBrand categoryBrand) {
         categoryBrandMapper.updateById(categoryBrand);
+    }
+
+    //根据分类id查询对应的品牌数据
+    @Override
+    public List<Brand> findBrandByCategoryId(Long categoryId) {
+        List<Brand> brandList = categoryBrandMapper.findBrandByCategoryId(categoryId);
+        return brandList;
     }
 }

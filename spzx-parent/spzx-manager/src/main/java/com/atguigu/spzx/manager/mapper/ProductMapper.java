@@ -11,4 +11,7 @@ public interface ProductMapper {
 
     //条件分页查询
     List<Product> findByPage(ProductDto productDto);
+
+    //保存商品基本信息
+    void save(Product product);
 }

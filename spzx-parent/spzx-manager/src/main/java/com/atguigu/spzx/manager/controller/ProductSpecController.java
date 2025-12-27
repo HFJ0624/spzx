@@ -8,6 +8,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 作者:hfj
  * 功能:商品规格管理
@@ -46,6 +48,13 @@ public class ProductSpecController {
     public Result removeById(@PathVariable("id") Long id){
         productSpecService.deleteById(id);
         return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    //查询商品所有规格
+    @GetMapping("/findAll")
+    public Result findAll() {
+        List<ProductSpec> list = productSpecService.findAll();
+        return Result.build(list,ResultCodeEnum.SUCCESS);
     }
 
 }

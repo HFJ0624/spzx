@@ -3,6 +3,8 @@ package com.atguigu.spzx.manager.service;
 import com.atguigu.spzx.model.entity.product.ProductSpec;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface ProductSpecService {
 
     //商品管理列表
@@ -16,4 +18,7 @@ public interface ProductSpecService {
 
     //商品删除功能
     void deleteById(Long id);
+
+    //查询商品所有规格
+    List<ProductSpec> findAll();
 }
