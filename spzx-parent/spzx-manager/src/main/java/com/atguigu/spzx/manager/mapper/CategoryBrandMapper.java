@@ -17,4 +17,7 @@ public interface CategoryBrandMapper {
 
     //分类品牌删除功能
     void deleteById(Long id);
+
+    //分类品牌修改功能
+    void updateById(CategoryBrand categoryBrand);
 }

@@ -35,6 +35,13 @@ public class CategoryBrandController {
         return Result.build(null,ResultCodeEnum.SUCCESS);
     }
 
+    //分类品牌修改功能
+    @PutMapping("/updateById")
+    public Result updateById(@RequestBody CategoryBrand categoryBrand) {
+        categoryBrandService.updateById(categoryBrand);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
     //分类品牌删除功能
     @DeleteMapping("/deleteById/{id}")
     public Result deleteById(@PathVariable Long id) {

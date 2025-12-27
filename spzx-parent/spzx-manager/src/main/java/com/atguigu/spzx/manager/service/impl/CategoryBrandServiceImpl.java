@@ -41,4 +41,10 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
     public void deleteById(Long id) {
         categoryBrandMapper.deleteById(id);
     }
+
+    //分类品牌修改功能
+    @Override
+    public void updateById(CategoryBrand categoryBrand) {
+        categoryBrandMapper.updateById(categoryBrand);
+    }
 }
