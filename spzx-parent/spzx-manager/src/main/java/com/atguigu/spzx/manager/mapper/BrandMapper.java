@@ -13,4 +13,10 @@ public interface BrandMapper {
 
     //品牌添加功能
     void save(Brand brand);
+
+    //品牌修改功能
+    void update(Brand brand);
+
+    //品牌删除
+    void deleteById(Long id);
 }

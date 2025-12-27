@@ -34,4 +34,16 @@ public class BrandServiceImpl implements BrandService {
     public void save(Brand brand) {
         brandMapper.save(brand);
     }
+
+    //品牌修改功能
+    @Override
+    public void update(Brand brand) {
+        brandMapper.update(brand);
+    }
+
+    //品牌删除
+    @Override
+    public void deleteById(Long id) {
+        brandMapper.deleteById(id);
+    }
 }

@@ -33,4 +33,18 @@ public class BrandController {
         brandService.save(brand);
         return Result.build(null,ResultCodeEnum.SUCCESS);
     }
+
+    //品牌修改功能
+    @PutMapping("/update")
+    public Result update(@RequestBody Brand brand){
+        brandService.update(brand);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    //品牌删除
+    @DeleteMapping("/deleteById/{id}")
+    public Result deleteById(@PathVariable("id") Long id) {
+        brandService.deleteById(id);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
 }
