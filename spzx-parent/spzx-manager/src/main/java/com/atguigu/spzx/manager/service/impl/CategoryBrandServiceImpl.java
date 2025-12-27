@@ -29,4 +29,16 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
         List<CategoryBrand> categoryBrandList = categoryBrandMapper.findByPage(categoryBrandDto);
         return new PageInfo<>(categoryBrandList);
     }
+
+    //分类品牌添加功能
+    @Override
+    public void save(CategoryBrand categoryBrand) {
+        categoryBrandMapper.save(categoryBrand);
+    }
+
+    //分类品牌删除功能
+    @Override
+    public void deleteById(Long id) {
+        categoryBrandMapper.deleteById(id);
+    }
 }

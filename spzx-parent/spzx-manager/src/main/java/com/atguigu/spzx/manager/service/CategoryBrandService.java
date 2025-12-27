@@ -8,4 +8,10 @@ public interface CategoryBrandService {
 
     //分类品牌条件分页查询
     PageInfo<CategoryBrand> findByPage(Integer page, Integer limit, CategoryBrandDto categoryBrandDto);
+
+    //分类品牌添加功能
+    void save(CategoryBrand categoryBrand);
+
+    //分类品牌删除功能
+    void deleteById(Long id);
 }
