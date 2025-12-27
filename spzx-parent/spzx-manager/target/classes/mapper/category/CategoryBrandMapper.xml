@@ -52,4 +52,13 @@
                  )
     </insert>
 
+    <!--  分类品牌删除功能  -->
+    <update id="deleteById">
+        update category_brand set
+          update_time = now() ,
+          is_deleted = 1
+        where
+            id = #{id}
+    </update>
+
 </mapper>
