@@ -133,4 +133,13 @@
         where
         id = #{id}
     </update>
+
+    <!--    根据id删除商品基本数据    -->
+    <update id="deleteById">
+        update product set
+                           update_time = now() ,
+                           is_deleted = 1
+        where
+            id = #{id}
+    </update>
 </mapper>

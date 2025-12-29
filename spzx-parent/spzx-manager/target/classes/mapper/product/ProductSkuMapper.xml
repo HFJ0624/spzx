@@ -101,4 +101,13 @@
         id = #{id}
     </update>
 
+    <!--  根据商品id删除商品的sku数据  -->
+    <update id="deleteByProductId">
+        update product_sku set
+                               update_time = now() ,
+                               is_deleted = 1
+        where
+            product_id = #{productId}
+    </update>
+
 </mapper>
