@@ -45,8 +45,29 @@ public class ProductController {
 
     //保存修改的数据
     @PutMapping("/updateById")
-    public Result updateById(@Parameter(name = "product", description = "请求参数实体类", required = true) @RequestBody Product product) {
+    public Result updateById(@Parameter(name = "product", description = "请求参数实体类", required = true) @RequestBody Product product){
         productService.updateById(product);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    //删除商品信息
+    @DeleteMapping("/deleteById/{id}")
+    public Result deleteById(@Parameter(name = "id", description = "商品id", required = true) @PathVariable Long id){
+        productService.deleteById(id);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    //商品审核功能
+    @GetMapping("/updateAuditStatus/{id}/{auditStatus}")
+    public Result updateAuditStatus(@PathVariable("id") Long id, @PathVariable("auditStatus") Integer auditStatus){
+        productService.updateAuditStatus(id, auditStatus);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    //商品审核功能
+    @GetMapping("/updateStatus/{id}/{status}")
+    public Result updateStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status){
+        productService.updateStatus(id,status);
         return Result.build(null,ResultCodeEnum.SUCCESS);
     }
 }

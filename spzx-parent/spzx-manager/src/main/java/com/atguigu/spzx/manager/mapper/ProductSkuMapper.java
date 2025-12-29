@@ -16,4 +16,7 @@ public interface ProductSkuMapper {
 
     //修改商品的sku数据
     void updateById(ProductSku productSku);
+
+    //根据商品id删除商品的sku数据
+    void deleteByProductId(Long id);
 }
