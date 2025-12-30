@@ -23,4 +23,13 @@
         order by order_num
     </select>
 
+    <!--  查询所有分类,返回list集合  -->
+    <select id="findAll" resultMap="categoryMap">
+        select <include refid="columns" />
+        from category
+        where
+        is_deleted = 0
+        order by order_num
+    </select>
+
 </mapper>

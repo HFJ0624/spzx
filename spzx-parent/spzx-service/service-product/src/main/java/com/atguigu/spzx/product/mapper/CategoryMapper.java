@@ -10,4 +10,7 @@ public interface CategoryMapper {
 
     //获取所有一级分类
     List<Category> findOneCategory();
+
+    //查询所有分类,返回list集合
+    List<Category> findAll();
 }
