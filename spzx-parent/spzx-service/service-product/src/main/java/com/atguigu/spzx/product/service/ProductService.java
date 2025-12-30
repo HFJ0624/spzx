@@ -2,6 +2,7 @@ package com.atguigu.spzx.product.service;
 
 import com.atguigu.spzx.model.dto.h5.ProductSkuDto;
 import com.atguigu.spzx.model.entity.product.ProductSku;
+import com.atguigu.spzx.model.vo.h5.ProductItemVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -13,4 +14,7 @@ public interface ProductService {
 
     //商品的分页查询
     PageInfo<ProductSku> findByPage(Integer page, Integer limit, ProductSkuDto productSkuDto);
+
+    //商品的详情功能
+    ProductItemVo item(Long skuId);
 }
