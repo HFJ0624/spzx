@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Knife4jConfig {
 
+    //后台的调试接口测试
     @Bean
     public GroupedOpenApi adminApi() {      // 创建了一个api接口的分组
         return GroupedOpenApi.builder()
@@ -35,5 +36,14 @@ public class Knife4jConfig {
                         .version("1.0")
                         .description("尚品甑选API接口文档")
                         .contact(new Contact().name("hfj"))); // 设定作者
+    }
+
+    //前端H5的调试接口测试
+    @Bean
+    public GroupedOpenApi webApi() {      // 创建了一个api接口的分组
+        return GroupedOpenApi.builder()
+                .group("web-api")         // 分组名称
+                .pathsToMatch("/api/**")  // 接口请求路径规则
+                .build();
     }
 }
