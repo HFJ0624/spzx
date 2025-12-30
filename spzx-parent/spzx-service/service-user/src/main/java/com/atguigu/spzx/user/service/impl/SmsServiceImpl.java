@@ -31,7 +31,7 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public void sendValidateCode(String phone) {
         //1.先判断redis里面是否有缓存的验证码
-        String code = redisTemplate.opsForValue().get("phone:code:" + phone);
+        String code = redisTemplate.opsForValue().get(phone);
         if(StringUtils.hasText(code)) {
             return;
         }
@@ -39,7 +39,7 @@ public class SmsServiceImpl implements SmsService {
         //2.生成四位的验证码
         String validateCode = RandomStringUtils.randomNumeric(4);
         //3.存入到redis里面
-        redisTemplate.opsForValue().set("phone:code:" + phone , validateCode , 5 , TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(phone , validateCode , 5 , TimeUnit.MINUTES);
         sendSms(phone,validateCode);
     }
 
