@@ -46,4 +46,13 @@ public class Knife4jConfig {
                 .pathsToMatch("/api/**")  // 接口请求路径规则
                 .build();
     }
+
+    //前端H5的用户接口调试
+    @Bean
+    public GroupedOpenApi userApi() {      // 创建了一个api接口的分组
+        return GroupedOpenApi.builder()
+                .group("user-api")         // 分组名称
+                .pathsToMatch("/api/**")  // 接口请求路径规则
+                .build();
+    }
 }
