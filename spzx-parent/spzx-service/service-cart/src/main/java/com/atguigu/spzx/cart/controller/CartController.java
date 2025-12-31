@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,5 +40,13 @@ public class CartController {
     public Result<List<CartInfo>> cartList() {
         List<CartInfo> cartInfoList = cartService.getCartList();
         return Result.build(cartInfoList,ResultCodeEnum.SUCCESS);
+    }
+
+    //删除购物车列表
+    @Operation(summary = "删除购物车商品")
+    @DeleteMapping("/auth/deleteCart/{skuId}")
+    public Result deleteCart(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable("skuId") Long skuId) {
+        cartService.deleteCart(skuId);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }
