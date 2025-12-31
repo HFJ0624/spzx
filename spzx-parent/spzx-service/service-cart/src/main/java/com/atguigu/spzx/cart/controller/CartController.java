@@ -55,7 +55,23 @@ public class CartController {
     @GetMapping("/auth/checkCart/{skuId}/{isChecked}")
     public Result allCheckCart(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable(value = "skuId") Long skuId,
                                @Parameter(name = "isChecked", description = "是否选中 1:选中 0:取消选中", required = true) @PathVariable(value = "isChecked") Integer isChecked){
-        cartService.allCheckCart(skuId,isChecked);
+        cartService.checkCart(skuId,isChecked);
         return Result.build(null,ResultCodeEnum.SUCCESS);
+    }
+
+    //更新购物车商品全部选中状态
+    @Operation(summary="更新购物车商品全部选中状态")
+    @GetMapping("/auth/allCheckCart/{isChecked}")
+    public Result allCheckCart(@Parameter(name = "isChecked", description = "是否选中 1:选中 0:取消选中", required = true) @PathVariable(value = "isChecked") Integer isChecked){
+        cartService.allCheckCart(isChecked);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    //清空购物车
+    @Operation(summary="清空购物车")
+    @GetMapping("/auth/clearCart")
+    public Result clearCart(){
+        cartService.clearCart();
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }

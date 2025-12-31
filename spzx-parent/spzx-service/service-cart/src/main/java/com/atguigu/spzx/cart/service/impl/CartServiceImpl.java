@@ -107,7 +107,7 @@ public class CartServiceImpl implements CartService {
 
     //更新购物车商品选中状态
     @Override
-    public void allCheckCart(Long skuId,Integer isChecked) {
+    public void checkCart(Long skuId,Integer isChecked) {
         //1.获取当前登录的用户数据
         Long userId = AuthContextUtil.getUserInfo().getId();
         String cartKey = getCartKey(userId);
@@ -126,6 +126,39 @@ public class CartServiceImpl implements CartService {
             redisTemplate.opsForHash().put(cartKey,String.valueOf(skuId),JSON.toJSONString(cartInfo));
         }
 
+    }
+
+    //更新购物车商品全部选中状态
+    @Override
+    public void allCheckCart(Integer isChecked) {
+        //1.获取当前登录的用户数据
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = getCartKey(userId);
+
+        //2.获取所有的购物项数据
+        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
+
+        if(!CollectionUtils.isEmpty(objectList)) {
+            //List<Object> -> List<CartInfo>
+            List<CartInfo> cartInfoList = objectList.stream().map(object -> JSON.parseObject(object.toString(), CartInfo.class)).collect(Collectors.toList());
+
+            //3.把每个商品的isChecked更新
+            cartInfoList.forEach(cartInfo -> {
+                cartInfo.setIsChecked(isChecked);
+                redisTemplate.opsForHash().put(cartKey,String.valueOf(cartInfo.getSkuId()),JSON.toJSONString(cartInfo));
+            });
+        }
+    }
+
+    //清空购物车
+    @Override
+    public void clearCart() {
+        //1.获取当前登录的用户数据
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = getCartKey(userId);
+
+        //2.清空redis的购物车缓存数据
+        redisTemplate.delete(cartKey);
     }
 
     private String getCartKey(Long userId) {
