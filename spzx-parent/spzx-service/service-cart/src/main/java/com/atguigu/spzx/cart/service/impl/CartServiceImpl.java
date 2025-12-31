@@ -105,6 +105,29 @@ public class CartServiceImpl implements CartService {
         redisTemplate.opsForHash().delete(cartKey,String.valueOf(skuId));
     }
 
+    //更新购物车商品选中状态
+    @Override
+    public void allCheckCart(Long skuId,Integer isChecked) {
+        //1.获取当前登录的用户数据
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = getCartKey(userId);
+
+        //2.获取所有的购物项数据
+        Boolean hasKey = redisTemplate.opsForHash().hasKey(cartKey, String.valueOf(skuId));
+        if (hasKey){
+            //3.根据key+field把value取出来
+            String cartInfoString = redisTemplate.opsForHash().get(cartKey, String.valueOf(skuId)).toString();
+
+            //4.更新value里面选中状态
+            CartInfo cartInfo = JSON.parseObject(cartInfoString, CartInfo.class);
+            cartInfo.setIsChecked(isChecked);
+
+            //5.放回到redis的hash类型里面
+            redisTemplate.opsForHash().put(cartKey,String.valueOf(skuId),JSON.toJSONString(cartInfo));
+        }
+
+    }
+
     private String getCartKey(Long userId) {
         //定义key user:cart:userId
         return "user:cart:" + userId;
