@@ -17,4 +17,7 @@ public interface ProductService {
 
     //商品的详情功能
     ProductItemVo item(Long skuId);
+
+    //远程调用:根据skuId返回sku信息
+    ProductSku getBySkuId(Long skuId);
 }

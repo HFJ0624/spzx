@@ -90,4 +90,11 @@ public class ProductServiceImpl implements ProductService {
         productItemVo.setSkuSpecValueMap(skuSpecValueMap);
         return productItemVo;
     }
+
+    //远程调用:根据skuId返回sku信息
+    @Override
+    public ProductSku getBySkuId(Long skuId) {
+        ProductSku productSku = productSkuMapper.getById(skuId);
+        return productSku;
+    }
 }
