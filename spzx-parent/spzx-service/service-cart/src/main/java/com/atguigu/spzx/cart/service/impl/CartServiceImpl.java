@@ -9,8 +9,12 @@ import com.atguigu.spzx.utils.AuthContextUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 作者:hfj
@@ -69,6 +73,25 @@ public class CartServiceImpl implements CartService {
 
         //添加到redis里面
         redisTemplate.opsForHash().put(cartKey , String.valueOf(skuId) , JSON.toJSONString(cartInfo));
+    }
+
+    //查询购物车
+    @Override
+    public List<CartInfo> getCartList() {
+        //1.构建查询redis里面的key值,根据当前userId
+        Long userId = AuthContextUtil.getUserInfo().getId();
+        String cartKey = this.getCartKey(userId);
+
+        //2.根据key从redis里面hash类型获取所有value值 cartInfo
+        List<Object> valueList = redisTemplate.opsForHash().values(cartKey);
+
+        if (!CollectionUtils.isEmpty(valueList)){
+            List<CartInfo> infoList = valueList.stream().map(cartInfo -> JSON.parseObject(cartInfo.toString(), CartInfo.class))
+                    .sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
+                    .collect(Collectors.toList());
+            return infoList;
+        }
+        return new ArrayList<>();
     }
 
     private String getCartKey(Long userId) {
