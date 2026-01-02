@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +34,13 @@ public class UserAddressController {
     public Result<List<UserAddress>> findUserAddressList() {
         List<UserAddress> list = userAddressService.findUserAddressList();
         return Result.build(list,ResultCodeEnum.SUCCESS);
+    }
+
+    //远程调用:订单获取用户地址信息
+    @Operation(summary = "获取地址信息")
+    @GetMapping("/getUserAddress/{id}")
+    public UserAddress getUserAddress(@PathVariable("id") Long id) {
+        UserAddress userAddress = userAddressService.getById(id);
+        return userAddress;
     }
 }

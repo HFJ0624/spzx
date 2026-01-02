@@ -27,4 +27,11 @@ public class UserAddressServiceImpl implements UserAddressService {
         List<UserAddress> userAddressList = userAddressMapper.findByUserId(userId);
         return userAddressList;
     }
+
+    //远程调用:订单获取用户地址信息
+    @Override
+    public UserAddress getById(Long id) {
+        UserAddress userAddress = userAddressMapper.getById(id);
+        return userAddress;
+    }
 }

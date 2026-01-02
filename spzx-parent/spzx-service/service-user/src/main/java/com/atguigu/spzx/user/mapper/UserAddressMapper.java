@@ -10,4 +10,7 @@ public interface UserAddressMapper {
 
     //获取用户地址列表
     List<UserAddress> findByUserId(Long userId);
+
+    //远程调用:订单获取用户地址信息
+    UserAddress getById(Long id);
 }

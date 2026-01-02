@@ -19,4 +19,12 @@
         where
         user_id = #{userId}
     </select>
+
+    <!--  远程调用:订单获取用户地址信息  -->
+    <select id="getById" resultMap="userAddressMap">
+        select <include refid="columns" />
+        from user_address
+        where
+        id = #{id}
+    </select>
 </mapper>
