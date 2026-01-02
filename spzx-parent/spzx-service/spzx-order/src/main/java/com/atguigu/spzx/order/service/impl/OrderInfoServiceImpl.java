@@ -176,4 +176,28 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         OrderInfo orderInfo = orderInfoMapper.getById(orderId);
         return orderInfo;
     }
+
+    //立即购买
+    @Override
+    public TradeVo buy(Long skuId) {
+        //1.查询商品
+        ProductSku productSku = productFeignClient.getBySkuId(skuId);
+        List<OrderItem> orderItemList = new ArrayList<>();
+        OrderItem orderItem = new OrderItem();
+        orderItem.setSkuId(skuId);
+        orderItem.setSkuName(productSku.getSkuName());
+        orderItem.setSkuNum(1);
+        orderItem.setSkuPrice(productSku.getSalePrice());
+        orderItem.setThumbImg(productSku.getThumbImg());//商品图片
+        orderItemList.add(orderItem);
+
+        //计算总金额
+        BigDecimal totalAmount = productSku.getSalePrice();
+        TradeVo tradeVo = new TradeVo();
+        tradeVo.setTotalAmount(totalAmount);
+        tradeVo.setOrderItemList(orderItemList);
+
+        // 返回
+        return tradeVo;
+    }
 }

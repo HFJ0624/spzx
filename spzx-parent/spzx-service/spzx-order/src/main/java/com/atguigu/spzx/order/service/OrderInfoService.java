@@ -14,4 +14,7 @@ public interface OrderInfoService {
 
     //获取订单信息
     OrderInfo getOrderInfo(Long orderId);
+
+    //立即购买
+    TradeVo buy(Long skuId);
 }
