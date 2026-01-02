@@ -23,4 +23,7 @@ public interface CartService {
 
     //清空购物车
     void clearCart();
+
+    //远程调用:订单结算使用,获取购物车选中商品列表
+    List<CartInfo> getAllCkecked();
 }
