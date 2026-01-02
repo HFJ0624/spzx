@@ -30,4 +30,14 @@
                      #{skuNum}
                  )
     </insert>
+
+    <!--  根据订单id查询订单项  -->
+    <select id="findByOrderId" resultMap="orderItemMap">
+        select <include refid="columns" />
+        from order_item
+        where
+        order_id = #{orderId}
+        and is_deleted = 0
+        order by id desc
+    </select>
 </mapper>

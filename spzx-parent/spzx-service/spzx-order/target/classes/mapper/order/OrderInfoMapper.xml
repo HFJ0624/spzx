@@ -72,4 +72,20 @@
         where
         id = #{id}
     </select>
+
+    <!--  查询订单信息  -->
+    <select id="findUserPage" resultMap="orderInfoMap">
+        select <include refid="columns" />
+        from order_info
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="orderStatus != null">
+                and order_status = #{orderStatus}
+            </if>
+            and is_deleted = 0
+        </where>
+        order by id desc
+    </select>
 </mapper>
