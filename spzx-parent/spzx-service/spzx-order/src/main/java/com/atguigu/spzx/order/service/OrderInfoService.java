@@ -21,4 +21,7 @@ public interface OrderInfoService {
 
     //获取订单分页列表
     PageInfo<OrderInfo> findUserPage(Integer page, Integer limit, Integer orderStatus);
+
+    //远程调用:根据订单编号获取订单信息
+    OrderInfo getByOrderNo(String orderNo);
 }

@@ -220,4 +220,13 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         return new PageInfo<>(orderInfoList);
     }
+
+    //远程调用:根据订单编号获取订单信息
+    @Override
+    public OrderInfo getByOrderNo(String orderNo) {
+        OrderInfo orderInfo = orderInfoMapper.getByOrderNo(orderNo);
+        List<OrderItem> orderItem = orderItemMapper.findByOrderId(orderInfo.getId());
+        orderInfo.setOrderItemList(orderItem);
+        return orderInfo;
+    }
 }
