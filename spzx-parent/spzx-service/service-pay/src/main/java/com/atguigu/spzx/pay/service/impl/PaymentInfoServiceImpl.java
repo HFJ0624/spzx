@@ -32,7 +32,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
         //2.判断支付记录是否存在
         if (paymentInfo == null){
             //远程调用获取订单信息
-            OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(orderNo);
+            OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(orderNo).getData();
 
             paymentInfo = new PaymentInfo();
             paymentInfo.setUserId(orderInfo.getUserId());

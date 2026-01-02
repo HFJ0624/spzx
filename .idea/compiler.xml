@@ -13,6 +13,7 @@
         <module name="service-order-client" />
         <module name="service-user-client" />
         <module name="common-log" />
+        <module name="service-order" />
         <module name="service-pay" />
         <module name="spzx-model" />
         <module name="spzx-server-gateway" />
@@ -20,7 +21,6 @@
         <module name="service-user" />
         <module name="service-cart" />
         <module name="spzx-manager" />
-        <module name="spzx-order" />
         <module name="service-cart-client" />
       </profile>
     </annotationProcessing>
@@ -32,6 +32,7 @@
       <module name="common-util" options="-parameters" />
       <module name="service-cart" options="-parameters" />
       <module name="service-cart-client" options="-parameters" />
+      <module name="service-order" options="-parameters" />
       <module name="service-order-client" options="-parameters" />
       <module name="service-pay" options="-parameters" />
       <module name="service-product" options="-parameters" />
@@ -40,7 +41,6 @@
       <module name="service-user-client" options="-parameters" />
       <module name="spzx-manager" options="-parameters" />
       <module name="spzx-model" options="-parameters" />
-      <module name="spzx-order" options="-parameters" />
       <module name="spzx-server-gateway" options="-parameters" />
       <module name="spzx-service" options="" />
       <module name="spzx-service-client" options="" />

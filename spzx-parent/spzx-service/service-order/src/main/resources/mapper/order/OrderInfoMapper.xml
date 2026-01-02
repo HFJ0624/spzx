@@ -88,4 +88,12 @@
         </where>
         order by id desc
     </select>
+
+    <!--  远程调用:根据订单编号获取订单信息  -->
+    <select id="getByOrderNo" resultMap="orderInfoMap">
+        select <include refid="columns" />
+        from order_info
+        where
+        order_no = #{orderNo}
+    </select>
 </mapper>

@@ -78,8 +78,8 @@ public class OrderInfoController {
     //远程调用:根据订单编号获取订单信息
     @Operation(summary = "获取订单信息")
     @GetMapping("/auth/getOrderInfoByOrderNo/{orderNo}")
-    public OrderInfo getOrderInfoByOrderNo(@Parameter(name = "orderId", description = "订单id", required = true) @PathVariable("orderNo") String orderNo) {
+    public Result<OrderInfo> getOrderInfoByOrderNo(@Parameter(name = "orderId", description = "订单id", required = true) @PathVariable("orderNo") String orderNo) {
         OrderInfo orderInfo = orderInfoService.getByOrderNo(orderNo);
-        return orderInfo;
+        return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
     }
 }
