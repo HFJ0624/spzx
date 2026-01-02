@@ -8,4 +8,7 @@ public interface OrderInfoMapper {
 
     //添加数据到order_info表
     void save(OrderInfo orderInfo);
+
+    //获取订单信息
+    OrderInfo getById(Long orderId);
 }

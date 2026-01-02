@@ -169,4 +169,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         //8.返回订单id
         return orderInfo.getId();
     }
+
+    //获取订单信息
+    @Override
+    public OrderInfo getOrderInfo(Long orderId) {
+        OrderInfo orderInfo = orderInfoMapper.getById(orderId);
+        return orderInfo;
+    }
 }

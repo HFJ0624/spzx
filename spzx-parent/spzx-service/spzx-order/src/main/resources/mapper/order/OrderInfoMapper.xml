@@ -64,4 +64,12 @@
                      #{cancelReason}
                  )
     </insert>
+
+    <!--  获取订单信息  -->
+    <select id="getById" resultMap="orderInfoMap">
+        select <include refid="columns" />
+        from order_info
+        where
+        id = #{id}
+    </select>
 </mapper>
