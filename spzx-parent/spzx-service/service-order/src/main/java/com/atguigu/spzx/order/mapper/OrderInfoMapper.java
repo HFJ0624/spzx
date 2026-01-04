@@ -19,4 +19,7 @@ public interface OrderInfoMapper {
 
     //远程调用:根据订单编号获取订单信息
     OrderInfo getByOrderNo(String orderNo);
+
+    //更新订单状态
+    void updateById(OrderInfo orderInfo);
 }

@@ -80,4 +80,11 @@
         product_id = #{productId}
     </select>
 
+    <!--  更新商品sku销量  -->
+    <update id="updateSale" >
+        update product_sku
+        set sale_num = sale_num + #{num}, stock_num = stock_num - #{num}, update_time =  now()
+        where id = #{skuId}
+    </update>
+
 </mapper>

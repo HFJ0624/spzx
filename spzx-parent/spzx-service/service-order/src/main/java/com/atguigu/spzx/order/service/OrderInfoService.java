@@ -24,4 +24,7 @@ public interface OrderInfoService {
 
     //远程调用:根据订单编号获取订单信息
     OrderInfo getByOrderNo(String orderNo);
+
+    //远程调用:更新订单状态
+    void updateOrderStatus(String orderNo, Integer orderStatus);
 }

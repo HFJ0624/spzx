@@ -2,6 +2,8 @@ package com.atguigu.spzx.pay.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.feign.order.OrderFeignClient;
+import com.atguigu.spzx.feign.product.ProductFeignClient;
+import com.atguigu.spzx.model.dto.product.SkuSaleDto;
 import com.atguigu.spzx.model.entity.order.OrderInfo;
 import com.atguigu.spzx.model.entity.order.OrderItem;
 import com.atguigu.spzx.model.entity.pay.PaymentInfo;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 作者:hfj
@@ -27,6 +31,9 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
 
     @Autowired
     private OrderFeignClient orderFeignClient;
+
+    @Autowired
+    private ProductFeignClient productFeignClient;
 
     //保存支付记录
     @Override
@@ -74,5 +81,18 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
         paymentInfo.setCallbackTime(new Date());
         paymentInfo.setCallbackContent(JSON.toJSONString(paramMap));
         paymentInfoMapper.updateById(paymentInfo);
+
+        //4.更新订单状态
+        orderFeignClient.updateOrderStatus(paymentInfo.getOrderNo(),paymentInfo.getPaymentStatus());
+
+        //5.更新sku销量
+        OrderInfo orderInfo = orderFeignClient.getOrderInfoByOrderNo(paymentInfo.getOrderNo()).getData();
+        List<SkuSaleDto> skuSaleDtoList = orderInfo.getOrderItemList().stream().map(item -> {
+            SkuSaleDto skuSaleDto = new SkuSaleDto();
+            skuSaleDto.setSkuId(item.getSkuId());
+            skuSaleDto.setNum(item.getSkuNum());
+            return skuSaleDto;
+        }).collect(Collectors.toList());
+        productFeignClient.updateSkuSaleNum(skuSaleDtoList);
     }
 }
