@@ -1,61 +1,88 @@
-# 尚品甄选 (Shangpin Zhenxuan)
+# 尚品甄选 - 企业级B2C电商平台
 
-> 一个基于微服务架构、面向企业级开发的B2C电子商务平台，旨在打造功能完善、技术前沿的全渠道智能电商系统。
 
-## ✨ 项目介绍
+[![Java](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2022.0.4-orange.svg)](https://spring.io/projects/spring-cloud)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0.36-blue.svg)](https://www.mysql.com/)
+[![Redis](https://img.shields.io/badge/Redis-7.2.4-red.svg)](https://redis.io/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-尚品甄选是一个以京东商城为参考原型，采用主流**前后端分离**与**微服务架构**的互联网B2C电子商城项目。项目涵盖了平台管理端、商品PC端及微信小程序端等多个终端，完整实现了B2C电商的核心业务流程，是学习和实践大型企业级项目的优秀案例。
+## 📖 项目概述
+**尚品甄选** 是一款基于微服务架构、前后端分离的企业级B2C电商系统，对标主流电商业务模型，覆盖用户端、商家端、平台管理端全场景业务。
 
-项目融合了Java微服务与AI技术，构建了全渠道智能电商平台，可作为Java进阶、大数据开发、AI应用等领域学习者优秀的项目实践或二次开发基座。
+项目解决传统单体电商系统并发低、扩展性差、业务耦合严重等问题，整合商品、用户、订单、支付、营销、库存、权限等全套电商核心能力，适合作为毕业设计、企业项目原型、二次开发商用模板。
 
-## 🛠 项目架构与技术栈
+## ✨ 核心功能模块
 
-- **后端架构**：采用**混合架构**，后台管理系统为单体架构，前台用户系统为微服务架构，兼顾开发效率与系统性能。
-- **前端架构**：基于**Vue3** + **Element Plus** + **Vite**，采用前后端分离模式，提供中后台管理系统解决方案。用户端为基于**uni-app**的H5应用。
-- **部署与容器化**：服务使用**Docker**进行容器化部署，通过**Nginx**进行前端负载均衡与反向代理。系统采用**SpringCloud + Docker**架构实现高可用部署。
+### 👥 用户服务模块
+- 基于JWT实现多端统一单点登录、注册、权限校验
+- 会员等级、积分、成长值、用户权益体系
+- 收货地址管理、个人信息、账户安全设置
+- 订单记录、商品收藏、浏览记录管理
 
-| 层次 | 技术栈 | 版本 |
-| :--- | :--- | :--- |
-| 基础环境 | JDK | 17 |
-| | MySQL | 8.0.30 |
-| | Redis | 7.0.10 |
-| 核心框架 | Spring Boot | 3.0.5+ |
-| | Spring Cloud | 2022.0.2 |
-| | Spring Cloud Alibaba | - |
-| 数据访问 | MyBatis-Plus | - |
-| | EasyExcel | - |
-| 服务与中间件 | Nacos | - |
-| | Sentinel | - |
-| | Minio | - |
-| | RabbitMQ | - |
-| 前端技术 | Vue3 / ES6 / Vite / Element Plus / ECharts | - |
+### 🛒 商品服务模块
+- 商品分类、品牌管理、商品规格、SKU管理
+- 商品上下架、审核、详情渲染、参数配置
+- Elasticsearch 全文检索、条件筛选、热门推荐
+- 商品图文、详情、库存实时展示
 
-## ⚙️ 核心功能模块
+### 📦 订单与购物车模块
+- 购物车增删改查、批量结算、价格实时计算
+- 完整订单生命周期：下单、支付、发货、物流、收货、评价
+- 订单状态管理、取消订单、退款售后流程
+- 防超卖、分布式库存扣减机制
 
-### 1. 平台管理端 (后台管理系统)
-- **基础数据维护**：商品、分类、品牌、规格及订单管理。
-- **统计分析**：对平台运营数据进行多维度统计分析与图表展示。
-- **权限管理**：实现基于RBAC模型的精细化权限控制体系。
-- **数据导入导出**：利用EasyExcel实现业务数据的批量处理。
+### 🎁 营销活动模块
+- 满减、折扣、优惠券发放与核销
+- 秒杀、限时活动、积分兑换、活动预热
+- 活动规则配置、活动数据统计
 
-### 2. 用户端 (前台系统)
-- **商品浏览**：首页展示、分类导航、商品检索与详情查询。
-- **用户中心**：注册登录及个人信息管理。
-- **购物流程**：商品加购、下单、在线支付（集成支付宝）及订单管理。
-- **营销活动**：支持优惠券、促销活动等营销工具。
+### 🛡️ 后台管理模块
+- 权限角色、菜单管理、用户管理
+- 店铺入驻、资质审核、店铺管理
+- 数据大屏、订单统计、用户统计、销量统计
+- 系统日志、操作记录、异常监控
 
-### 3. AI与大数据集成 (项目特色)
-- **智能对话与语义搜索**：通过**LangChain4j**接入大模型，**RAG**技术结合向量数据库增强商品检索的语义匹配能力。
-- **AI数据分析**：集成**ChatBI**，支持通过自然语言交互式查询销售数据。
+## 🛠️ 技术栈
 
-## 📁 工程结构
+### 后端技术
+- JDK 17
+- Spring Boot 3.2.5
+- Spring Cloud / Spring Cloud Alibaba
+- MyBatis-Plus 3.5.3.1
+- MySQL 8.0
+- Redis 7.2
+- Elasticsearch 8.x
+- RabbitMQ 消息队列
+- MinIO 对象存储
+- Sentinel 熔断限流
+- Seata 分布式事务
+- Nacos 注册配置中心
 
-项目采用Maven多模块结构进行组织，层次清晰，便于维护和扩展。
+### 前端技术
+- Vue3
+- Vite
+- Element Plus / Vant
+- Pinia 状态管理
+- Vue Router
+- Axios
+- ECharts 数据可视化
 
-```text
-spzx-parent (父工程，依赖管理)
-├── spzx-common (公共模块)
-│   ├── common-util (工具类模块)
-│   └── common-service (公共服务模块)
-├── spzx-model (实体类模块)
-└── spzx-manager (后台管理服务)
+## 🏗️ 系统架构
+1. **网关层**：Spring Cloud Gateway 统一入口、路由转发、鉴权、限流
+2. **注册配置中心**：Nacos 服务注册、发现、动态配置
+3. **认证授权中心**：JWT + Spring Security 统一认证授权
+4. **微服务业务层**：用户服务、商品服务、订单服务、购物车服务、营销服务、库存服务、支付服务
+5. **中间件层**：Redis缓存、MQ异步解耦、ES检索、MinIO文件存储
+6. **数据层**：MySQL主从、Redis集群、ES集群
+
+## 🚀 快速启动
+
+### 环境依赖
+- JDK 17+
+- Maven 3.8+
+- MySQL 8.0+
+- Redis 7.0+
+- Nacos 2.2+
+- Node.js 16+
